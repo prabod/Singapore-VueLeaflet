@@ -1,28 +1,38 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div id="app">
+    <l-map
+      :zoom="zoom"
+      :center="center">
+      <l-tile-layer
+        :url="url"
+        :attribution="attribution"/>
+      <l-marker :lat-lng="marker">
+      </l-marker>
+    </l-map>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import {LMap, LTileLayer, LMarker} from 'vue2-leaflet'
+import L from 'leaflet'
 export default {
   name: 'app',
-  components: {
-    HelloWorld
+  components:{ LMap, LTileLayer, LMarker },
+  data() {
+    return {
+      zoom:13,
+      center: L.latLng(1.3521, 103.8198),
+      url:'https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager/{z}/{x}/{y}.png',
+      attribution:'&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+      marker: L.latLng(1.3521, 103.8198),
+    }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+html, body, #app {
+  height: 100%;
+  margin: 0;
 }
 </style>
